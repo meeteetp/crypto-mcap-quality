@@ -1,16 +1,15 @@
 # Measurement Quality of Reported Crypto Market Capitalization (Prototype)
 
-**Status:** Pilot, April 2026. Accompanies a research proposal that develops both supply-side (free-float) and price-side (liquidity and wash-trading) adjustments to reported crypto market capitalization, and tests their predictive content against scheduled token unlock events on Ethereum.
+A pilot codebase that constructs liquidity-quality diagnostics for a panel of 90 ERC-20 tokens and benchmarks the results against CRSP common stocks. Accompanies a research proposal on supply-side (free-float) and price-side (liquidity and wash-trading) adjustments to reported crypto market capitalization, tested against scheduled token unlock events on Ethereum. An EF PhD Fellowship proposal based on this pilot was submitted in April 2026.
 
-**Author:** Tanawat Ponggittila (PhD student, George Mason University)
+**Author:** Tanawat Ponggittila (PhD student, George Mason University)  
+**Status:** Pilot, April 2026
 
----
-
-## Research question
+## Research context
 
 Reported crypto market capitalization is computed as *price × circulating supply*. Both terms can be noisy:
 
-- **Supply-side.** Industry free-float methods (Coin Metrics' Adjusted Free Float Supply, FTSE-style approaches) deduct disclosed locked, treasury, and insider categories and round the result to the nearest 10% bucket. Tokens with concentrated but unlabeled holdings, or with large near-term scheduled unlocks, may still carry overstated effective float.
+- **Supply-side.** Industry free-float methods (e.g. Coin Metrics' Adjusted Free Float Supply) deduct disclosed locked, treasury, and insider categories and round the result to the nearest 10% bucket. Tokens with concentrated but unlabeled holdings, or with large near-term scheduled unlocks, may still carry overstated effective float. A useful correction would read standard vesting contracts (Sablier, Hedgey, OpenZeppelin TokenVesting) directly on-chain and add a dormancy rule for concentrated wallets that have not transacted recently, regardless of whether they carry a public label.
 - **Price-side.** No standard measure adjusts the price term for thin liquidity or wash-trading-inflated volume. Last-trade prices for thinly traded tokens may not reflect what would clear at size. A useful correction would re-weight the price term by a measure of trade quality — for example, by computing the Amihud denominator from volume on credibly surveilled (Tier-1) exchanges only, or by penalizing prices set on venues whose volume profile is inconsistent with that of trusted venues for the same token.
 
 This repository produces descriptive liquidity diagnostics that identify the cross-section where a price-side adjustment is most likely to bind, and pulls the supply-side data the full project will use. The full project builds the actual adjustments (a stricter free-float measure on the supply side, a Tier-1-venue-filtered Amihud on the price side) and applies them jointly to scheduled token unlocks on Ethereum using the IPO lockup-expiration event-study methodology (Ofek & Richardson 2000; Field & Hanka 2001).
@@ -40,17 +39,17 @@ OHM is the largest example. At over $250M reported mcap, 1% would take about 15 
 
 **Finding 3 — Cross-validation across measures.** The set of tokens flagged by Amihud illiquidity (Finding 1) and the set flagged by days-to-liquidate (Finding 2) overlap. Since these are different measures (return impact vs. depth-time ratio), the overlap suggests the pattern is not specific to one liquidity proxy.
 
-These descriptive results identify the cross-section where a price-side adjustment is most likely to bind. The natural next step, deferred to the full project, is to operationalize the adjustment by computing Amihud and related measures from volume on Tier-1 exchanges only — applying the cross-exchange dispersion and venue-filtering logic of Aloosh & Li (2024) and Cong, Li, Tang & Yang (2023) — and reporting the resulting liquidity-adjusted market capitalization for each token.
+These descriptive results identify the cross-section where a price-side adjustment is most likely to bind. The natural next step, deferred to the full project, is to operationalize the adjustment by computing Amihud and related measures from volume on Tier-1 exchanges only — drawing on indirect wash-trading detection methods validated in Aloosh & Li (2024) and the cross-exchange detectors in Cong, Li, Tang & Yang (2023) — and reporting the resulting liquidity-adjusted market capitalization for each token.
 
 ## Supply-side data
 
-A separate notebook (`notebooks/02_tokenomist_supply_check.ipynb`) pulls supply-side data from the tokenomist API: token list, per-token supply breakdown, scheduled unlock events, and a cumulative-dilution measure that sums per-event `valueToMarketCap` over a lookback window. The intersection with the CoinGecko universe is small in this run, so the figures there are illustrative of the data and the code path rather than the basis for any cross-sectional claim.
+A separate notebook (`notebooks/02_tokenomist_supply_check.ipynb`) pulls supply-side data from the tokenomist API: token list, per-token supply breakdown, scheduled unlock events, and a cumulative-dilution measure that sums per-event `valueToMarketCap` over a lookback window. The intersection with the CoinGecko universe is small in this run — only four ERC-20 tokens have coverage in both — so cumulative dilution can only be reported for those four. Summing per-event `valueToMarketCap` over the past 365 days yields cumulative dilution of 102% (OP), 84% (ENA), 62% (IMX), and 41% (ARB). Each of these tokens released supply at least 41% of headline market cap over the year. The four-token sample is too small to support cross-sectional claims; the full project widens the intersection by going through tokenomist directly rather than starting from the CoinGecko universe.
 
 ![Cumulative supply released over the past year](figures/fig5_cumulative_dilution.png)
 
 ## Limitations
 
-- Descriptive findings on a small panel. No causal claims, no predictive tests, no pre-registration. The full project addresses all three with a larger panel and a pre-analysis plan deposited on OSF before predictive tests are run.
+- Descriptive findings on a small panel. No causal claims and no predictive tests. The full project addresses both with a larger panel and the measurement adjustments described in the accompanying proposal.
 - The price-side `days-to-liquidate` measure assumes execution at *median* daily volume. Real execution at size would face additional impact and is not modeled here.
 - The 90-day rolling window is a deliberate pilot choice. The full project uses a longer panel and tests robustness across alternative window lengths.
 
@@ -75,34 +74,6 @@ jupyter lab notebooks/01_pilot_walkthrough.ipynb
 ```
 
 The CoinGecko pull takes about 4 minutes on the first run and is cached for 24 hours.
-
-## Repo structure
-
-```
-.
-├── README.md
-├── .env.example
-├── requirements.txt
-├── src/
-│   ├── __init__.py
-│   ├── data_fetch.py
-│   ├── measures.py
-│   ├── plots.py
-│   ├── tokenomist.py
-│   └── run_pilot.py
-├── notebooks/
-│   ├── 01_pilot_walkthrough.ipynb
-│   └── 02_tokenomist_supply_check.ipynb
-├── data/
-│   ├── tokens.csv
-│   └── panel.csv
-└── figures/
-    ├── fig1_amihud_vs_mcap.png
-    ├── fig2_days_to_liquidate_by_decile.png
-    ├── fig3_unlock_calendar.png
-    ├── fig4_locked_share.png
-    └── fig5_cumulative_dilution.png
-```
 
 ## Data and licensing
 
