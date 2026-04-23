@@ -1,0 +1,103 @@
+coingecko_id,symbol,notes
+chainlink,LINK,established large-cap oracle
+uniswap,UNI,dex governance large-cap
+aave,AAVE,lending protocol large-cap
+maker,MKR,mkr governance large-cap
+the-graph,GRT,infra mid-cap
+curve-dao-token,CRV,dex governance mid-cap
+synthetix-network-token,SNX,derivatives mid-cap
+compound-governance-token,COMP,lending mid-cap
+balancer,BAL,dex governance mid-cap
+yearn-finance,YFI,yield mid-cap
+1inch,1INCH,dex aggregator mid-cap
+loopring,LRC,l2 mid-cap
+ankr,ANKR,infra mid-cap
+ocean-protocol,OCEAN,data mid-cap
+injective-protocol,INJ,derivatives mid-cap
+kyber-network-crystal,KNC,dex small-cap
+sushi,SUSHI,dex small-cap
+bancor,BNT,dex small-cap
+ren,REN,bridge small-cap
+band-protocol,BAND,oracle small-cap
+numeraire,NMR,data small-cap
+storj,STORJ,storage small-cap
+tellor,TRB,oracle small-cap
+power-ledger,POWR,energy small-cap
+civic,CVC,identity small-cap
+mass-vehicle-ledger,MVL,mobility small-cap
+polymath,POLY,compliance small-cap
+quant-network,QNT,interop mid-cap
+ripio-credit-network,RCN,lending small-cap
+keep-network,KEEP,privacy small-cap
+oasis-network,ROSE,l1 mid-cap
+ethereum-name-service,ENS,names mid-cap
+lido-dao,LDO,staking governance large-cap
+rocket-pool,RPL,staking mid-cap
+frax-share,FXS,stablecoin mid-cap
+convex-finance,CVX,yield mid-cap
+fei-protocol,FEI,stablecoin small-cap
+olympus,OHM,defi experimental
+spell-token,SPELL,lending small-cap
+radicle,RAD,code small-cap
+gitcoin,GTC,grants small-cap
+perpetual-protocol,PERP,derivatives small-cap
+dydx,DYDX,derivatives mid-cap
+apecoin,APE,meme/ecosystem mid-cap
+sandbox,SAND,metaverse mid-cap
+decentraland,MANA,metaverse mid-cap
+gala,GALA,gaming mid-cap
+enjincoin,ENJ,gaming small-cap
+audius,AUDIO,media small-cap
+livepeer,LPT,media small-cap
+theta-token,THETA,video large-cap
+arbitrum,ARB,l2 large-cap
+optimism,OP,l2 large-cap
+blur,BLUR,nft mid-cap
+pepe,PEPE,meme mid-cap
+floki,FLOKI,meme small-cap
+shiba-inu,SHIB,meme large-cap
+wojak,WOJAK,meme small-cap
+milady-meme-coin,LADYS,meme small-cap
+illuvium,ILV,gaming mid-cap
+immutable-x,IMX,l2 gaming large-cap
+merit-circle,MC,gaming small-cap
+gods-unchained,GODS,gaming small-cap
+star-atlas,ATLAS,gaming small-cap
+aavegotchi,GHST,gaming small-cap
+vulcan-forged,PYR,gaming small-cap
+my-neighbor-alice,ALICE,gaming small-cap
+polkastarter,POLS,launchpad small-cap
+dao-maker,DAO,launchpad small-cap
+bella-protocol,BEL,yield small-cap
+ramp,RAMP,stablecoin small-cap
+dodo,DODO,dex small-cap
+prom,PROM,infra small-cap
+covalent,CQT,data small-cap
+api3,API3,oracle small-cap
+truefi,TRU,lending small-cap
+alchemix,ALCX,lending small-cap
+rally-2,RLY,creator small-cap
+badger-dao,BADGER,btc-defi small-cap
+dforce-token,DF,lending small-cap
+origin-protocol,OGN,stablecoin small-cap
+nest,NEST,oracle small-cap
+pnetwork,PNT,bridge small-cap
+stargate-finance,STG,bridge small-cap
+iexec-rlc,RLC,compute small-cap
+request-network,REQ,payments small-cap
+wax,WAX,nft small-cap
+metal,MTL,payments small-cap
+moonbeam,GLMR,l2 small-cap
+fetch-ai,FET,ai large-cap
+singularitynet,AGIX,ai mid-cap
+ocean-protocol,OCEAN,ai-data mid-cap
+render-token,RNDR,ai-compute large-cap
+bittensor,TAO,ai large-cap
+worldcoin-wld,WLD,identity mid-cap
+pendle,PENDLE,yield mid-cap
+ethena,ENA,stablecoin mid-cap
+jito-governance-token,JTO,staking mid-cap
+eigenlayer,EIGEN,restaking mid-cap
+tapioca-dao,TAP,omnichain small-cap
+wormhole,W,bridge mid-cap
+layerzero,ZRO,messaging mid-cap
