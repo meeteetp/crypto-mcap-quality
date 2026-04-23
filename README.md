@@ -13,9 +13,9 @@ Reported crypto market capitalization is computed as *price × circulating suppl
 - **Supply-side.** Industry free-float methods (Coin Metrics' Adjusted Free Float Supply, FTSE-style approaches) deduct disclosed locked, treasury, and insider categories and round the result to the nearest 10% bucket. Tokens with concentrated but unlabeled holdings, or with large near-term scheduled unlocks, may still carry overstated effective float.
 - **Price-side.** No standard measure adjusts the price term for thin liquidity or wash-trading-inflated volume. Last-trade prices for thinly traded tokens may not reflect what would clear at size. A useful correction would re-weight the price term by a measure of trade quality — for example, by computing the Amihud denominator from volume on credibly surveilled (Tier-1) exchanges only, or by penalizing prices set on venues whose volume profile is inconsistent with that of trusted venues for the same token.
 
-This repository prototypes the price-side adjustment for an ERC-20 panel and demonstrates supply-side data infrastructure for the full project. The full project applies both adjustments jointly to scheduled token unlocks on Ethereum using the IPO lockup-expiration event-study methodology (Ofek & Richardson 2000; Field & Hanka 2001).
+This repository produces descriptive liquidity diagnostics that identify the cross-section where a price-side adjustment is most likely to bind, and pulls the supply-side data the full project will use. The full project builds the actual adjustments (a stricter free-float measure on the supply side, a Tier-1-venue-filtered Amihud on the price side) and applies them jointly to scheduled token unlocks on Ethereum using the IPO lockup-expiration event-study methodology (Ofek & Richardson 2000; Field & Hanka 2001).
 
-## Findings — price side
+## Findings — liquidity diagnostics
 
 The pilot pulls 100 ERC-20 tokens from CoinGecko; 92 return usable history and 90 remain after dropping tokens with reported market cap below $100k or missing measures. All measures are 90-day rolling windows.
 
@@ -42,9 +42,9 @@ OHM is the largest example. At over $250M reported mcap, 1% would take about 15 
 
 These descriptive results identify the cross-section where a price-side adjustment is most likely to bind. The natural next step, deferred to the full project, is to operationalize the adjustment by computing Amihud and related measures from volume on Tier-1 exchanges only — applying the cross-exchange dispersion and venue-filtering logic of Aloosh & Li (2024) and Cong, Li, Tang & Yang (2023) — and reporting the resulting liquidity-adjusted market capitalization for each token.
 
-## Supply-side data infrastructure
+## Supply-side data
 
-A separate notebook (`notebooks/02_tokenomist_supply_check.ipynb`) implements the supply-side data pipeline against the tokenomist API: token list pull, per-token supply breakdown, scheduled unlock events, and a cumulative-dilution measure that sums per-event `valueToMarketCap` over a lookback window. This is included to demonstrate that the data infrastructure for the full project's identification strategy is in place. The intersection with the CoinGecko universe is small in this run, so the figures there are illustrative of the pipeline rather than the basis for any cross-sectional claim.
+A separate notebook (`notebooks/02_tokenomist_supply_check.ipynb`) pulls supply-side data from the tokenomist API: token list, per-token supply breakdown, scheduled unlock events, and a cumulative-dilution measure that sums per-event `valueToMarketCap` over a lookback window. The intersection with the CoinGecko universe is small in this run, so the figures there are illustrative of the data and the code path rather than the basis for any cross-sectional claim.
 
 ![Cumulative supply released over the past year](figures/fig5_cumulative_dilution.png)
 
